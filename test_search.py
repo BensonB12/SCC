@@ -1,6 +1,6 @@
 import unittest
 from graph import Graph
-from search import whatever_first_search, reverse_graph, topological_sort_of_dag, stack
+from search import whatever_first_search, reverse_graph, topological_sort_of_dag
 
 class TestSearchMethods(unittest.TestCase):
 
@@ -13,7 +13,7 @@ class TestSearchMethods(unittest.TestCase):
         self.graph.add_edge(2, 3)
 
     def test_whatever_first_search(self):
-        result = whatever_first_search(self.graph, 1, 3, stack())
+        result = whatever_first_search(self.graph, 1, 3, [])
         self.assertEqual(result, [(None, 1), (1, 2), (2, 3)])
 
     def test_topological_sort_of_dag(self):

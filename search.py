@@ -1,23 +1,19 @@
 from typing import List
 from graph import Graph
 
-
-def stack():
-  return []
-
-def whatever_first_search(graph: Graph, starting_node: int, ending_node: int, things_to_search):
+def whatever_first_search(graph: Graph, starting_node: int, ending_node: int, things_to_search: List):
   visited = set()
   search_edges = []
-  things_to_search.push((None, starting_node)) # when I push I add in the score (plus the weight of the edge)
+  things_to_search.append((None, starting_node)) # when I push I add in the score (plus the weight of the edge)
   while things_to_search:
-    came_from, next_to_search = things_to_search.pop()
-    search_edges.push((came_from, next_to_search)) # need to update
+    came_from, next_to_search = things_to_search[len(things_to_search) - 1]
+    search_edges.append((came_from, next_to_search)) # need to update
     if next_to_search == ending_node:
       return search_edges
     visited.add(next_to_search)
-    for neighbor in graph.get_neighbors(next_to_search):
+    for neighbor in graph.node_to_neighbors(next_to_search):
       if neighbor not in visited:
-        things_to_search.push((next_to_search, neighbor))
+        things_to_search.append((next_to_search, neighbor))
   return search_edges
 
 
@@ -42,9 +38,9 @@ def topological_sort_of_dag(graph: Graph, visit_order: List[int], flatten=True):
       post_order = []
 
   if flatten:
-    return [node for component in components for node in component]
+    return [node for component in components.reverse() for node in component]
   else:
-    return components
+    return components.reverse()
 
 
 # whatever_first_search(g, start, stack())
