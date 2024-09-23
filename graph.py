@@ -24,10 +24,10 @@ class Graph():
       self.add_edge(edge.node, edge.neighbor, edge.weight)
 
   def all_nodes(self):
-    return self.node_to_neighbors.keys
+    return self.node_to_neighbors.keys()
   
   def all_edges(self):
-    return self.edge_to_wight.keys
+    return self.edge_to_wight.keys()
   
   def neighbors_of(self, node: int):
     return self.node_to_neighbors.get(node)
