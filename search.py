@@ -21,17 +21,17 @@ def whatever_first_search(graph: Graph, starting_node: int, ending_node: int, th
   return search_edges
 
 
-def dfs(graph: Graph, visit_order: List[int], flatten=True):
+def topological_sort_of_dag(graph: Graph, visit_order: List[int], flatten=True):
   visited = set()
-  # started_edges = []
   post_order = []
   components = []
 
   def explore(node):
     visited.add(node)
-    for neighbor in graph.get_neighbors(node):
+    if graph.neighbors_of(node) is None: 
+      return
+    for neighbor in graph.neighbors_of(node):
       if neighbor not in visited:
-        # started_edges.append((node, neighbor))
         explore(neighbor)
     post_order.append(node)
 
@@ -40,6 +40,7 @@ def dfs(graph: Graph, visit_order: List[int], flatten=True):
       explore(node)
       components.append(post_order)
       post_order = []
+
   if flatten:
     return [node for component in components for node in component]
   else:
