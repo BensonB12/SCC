@@ -11,13 +11,14 @@ def whatever_first_search(graph: Graph, starting_node: int, ending_node: int, th
     if next_to_search == ending_node:
       return search_edges
     visited.add(next_to_search)
-    for neighbor in graph.node_to_neighbors(next_to_search):
+    for neighbor in graph.neighbors_of(next_to_search):
       if neighbor not in visited:
         things_to_search.append((next_to_search, neighbor))
   return search_edges
 
 
 def topological_sort_of_dag(graph: Graph, visit_order: List[int], flatten=True):
+  graph = reverse_graph(graph)
   visited = set()
   post_order = []
   components = []
@@ -38,9 +39,9 @@ def topological_sort_of_dag(graph: Graph, visit_order: List[int], flatten=True):
       post_order = []
 
   if flatten:
-    return [node for component in components.reverse() for node in component]
+    return [node for component in components for node in component]
   else:
-    return components.reverse()
+    return components
 
 
 # whatever_first_search(g, start, stack())
